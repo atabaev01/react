@@ -1,8 +1,13 @@
-import React from "react";
-
+import React from 'react';
+import AddForm from './AddForm';
 
 const Header = () => {
-    return <header><nav></nav></header>
-} 
+    return (
+        <div>
+            <h1 className='text-center'>Chek</h1>
+            <AddForm/>
+        </div>
+    );
+};
 
-export default Header
+export default Header;
