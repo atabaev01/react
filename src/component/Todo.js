@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Todoitem from './Todoitem';
 
-const Todo = () => {
-    return (
-        <ul className="list-group mt-2">
-            <Todoitem>asdasda</Todoitem>
-            <Todoitem>sfgh</Todoitem>
-            <Todoitem>fgh</Todoitem>
-        </ul>
-    );
+class Todo extends Component {
+
+
+    state = {
+        todolist:[
+            {name:"Book", important: true, done:false},
+            {name:"Cook",important:false, done:true}, 
+            {name:"Sleep",important:true, done:false},
+            {name:"Play",important:false, done:true}
+            ]
+    }
+
+
+    render() {
+        return (
+            <ul className="list-group mt-2">
+                {this.state.todolist.map((lub)=>{
+                    return <Todoitem important={lub.important} done={lub.done}>{lub.name}</Todoitem>
+                })}
+            </ul>
+        );
+    }
 };
 
 export default Todo;
