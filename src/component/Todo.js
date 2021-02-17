@@ -14,11 +14,18 @@ class Todo extends Component {
     }
 
 
+    changeImportant = (name)=> () =>{
+        console.log('this change '+name);
+    }
+
     render() {
         return (
             <ul className="list-group mt-2">
                 {this.state.todolist.map((lub)=>{
-                    return <Todoitem important={lub.important} done={lub.done}>{lub.name}</Todoitem>
+                    return (
+                    <Todoitem changeImportant={this.changeImportant(lub.name)} important={lub.important} done={lub.done}>
+                        {lub.name}
+                    </Todoitem>)
                 })}
             </ul>
         );

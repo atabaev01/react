@@ -32,7 +32,7 @@ class Todoitem extends Component {
         const spanClassName = this.props.done ? "text done":"text"
         return (
             <li className={className}>
-                <span onClick={this.onClick}  className={spanClassName}>{this.props.children}</span>
+                <span onClick={this.props.changeImportant}  className={spanClassName}>{this.props.children}</span>
                 <button onClick={this.onClickDone} className="btn btn-success">Done</button>
             </li>
             
