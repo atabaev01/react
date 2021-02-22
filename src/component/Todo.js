@@ -5,31 +5,80 @@ class Todo extends Component {
 
 
     state = {
-        todolist:[
-            {name:"Book", important: true, done:false},
-            {name:"Cook",important:false, done:true}, 
-            {name:"Sleep",important:true, done:false},
-            {name:"Play",important:false, done:true}
-            ]
+        todolist: [
+            { id: 10, name: "Book", important: true, done: false },
+            { id: 20, name: "Cook", important: false, done: true },
+            { id: 30, name: "Sleep", important: true, done: false },
+            { id: 40, name: "Play", important: false, done: true }
+        ]
+    }
+
+    // changeDone = (id) => () => {
+    //     const todolist = this.state.todolist
+    //     const todoIndex = todolist.findIndex((item)=> item.id === id)
+    //     const todo = todolist[todoIndex]
+    //     const newTodo = {...todo}
+    //     newTodo.done = !newTodo.done
+
+    //     const newTodoList = [
+    //         ...todolist.slice(0, todoIndex),
+    //         newTodo,
+    //         ...todolist.slice(todoIndex+1),
+    //     ]
+    //     this.setState({
+    //         todolist: newTodoList
+    //     })
+    // }
+
+    changeDone = (id) => () =>{
+
+        this.setState(()=>{
+            const newTodoList = [...this.state.todolist]
+            const newTodo = newTodoList.find(item=>item.id===id)
+            newTodo.done = !newTodo.done
+            return {
+                todolist: newTodoList
+            }
+        })
+        
     }
 
 
-    changeImportant = (name)=> () =>{
-        console.log('this change '+name);
+    changeImportant= (id) => () =>{
+        this.setState(()=>{
+        const newTodoList = [...this.state.todolist]
+        const newTodo = newTodoList.find(item=>item.id===id)
+        newTodo.important = !newTodo.important
+        return{
+            todolist: newTodoList
+        }
+        })
     }
 
+    deleteItem = (id) => () => {
+        const filtered = this.state.todolist.filter((item) => item.id !== id)
+        this.setState({
+            todolist: filtered
+        })
+    }
     render() {
-        return (
-            <ul className="list-group mt-2">
-                {this.state.todolist.map((lub)=>{
-                    return (
-                    <Todoitem changeImportant={this.changeImportant(lub.name)} important={lub.important} done={lub.done}>
-                        {lub.name}
-                    </Todoitem>)
-                })}
-            </ul>
-        );
-    }
-};
+        return ( 
+            <ul className = "list-group mt-2">{
+                this.state.todolist.map((item) =>{
+                        return ( < Todoitem 
+                            key={item.id}
+                            changeImportant = { this.changeImportant(item.id)}
+                            important = { item.important }
+                            changeDone = {this.changeDone(item.id)}
+                            done = { item.done }
+                            deleteItem = { this.deleteItem(item.id) }>
+                                { item.name }
+                                </Todoitem>)
+                        })
+                }
+                </ul>
+            );
+        }
+    };
 
-export default Todo;
+    export default Todo;
