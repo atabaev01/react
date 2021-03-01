@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AddForm from './AddForm';
 import Todoitem from './Todoitem';
 
 class Todo extends Component {
@@ -12,6 +13,17 @@ class Todo extends Component {
             { id: 40, name: "Play", important: false, done: true }
         ]
     }
+
+    addTodo = (todo) => {
+        this.setState((state) => {
+            return{
+                todolist: [...state.todolist, todo]
+            }
+        })
+    }
+
+
+   
 
     // changeDone = (id) => () => {
     //     const todolist = this.state.todolist
@@ -32,8 +44,8 @@ class Todo extends Component {
 
     changeDone = (id) => () =>{
 
-        this.setState(()=>{
-            const newTodoList = [...this.state.todolist]
+        this.setState((state)=>{
+            const newTodoList = [...state.todolist]
             const newTodo = newTodoList.find(item=>item.id===id)
             newTodo.done = !newTodo.done
             return {
@@ -45,8 +57,8 @@ class Todo extends Component {
 
 
     changeImportant= (id) => () =>{
-        this.setState(()=>{
-        const newTodoList = [...this.state.todolist]
+        this.setState((state)=>{
+        const newTodoList = [...state.todolist]
         const newTodo = newTodoList.find(item=>item.id===id)
         newTodo.important = !newTodo.important
         return{
@@ -62,21 +74,25 @@ class Todo extends Component {
         })
     }
     render() {
+        
         return ( 
-            <ul className = "list-group mt-2">{
-                this.state.todolist.map((item) =>{
-                        return ( < Todoitem 
-                            key={item.id}
-                            changeImportant = { this.changeImportant(item.id)}
-                            important = { item.important }
-                            changeDone = {this.changeDone(item.id)}
-                            done = { item.done }
-                            deleteItem = { this.deleteItem(item.id) }>
-                                { item.name }
-                                </Todoitem>)
-                        })
-                }
-                </ul>
+            <div>
+                 <AddForm addTodo={this.addTodo}/>
+                    <ul className = "list-group mt-2">{
+                        this.state.todolist.map((item) =>{
+                                return ( < Todoitem 
+                                    key={item.id}
+                                    changeImportant = { this.changeImportant(item.id)}
+                                    important = { item.important }
+                                    changeDone = {this.changeDone(item.id)}
+                                    done = { item.done }
+                                    deleteItem = { this.deleteItem(item.id) }>
+                                        { item.name }
+                                        </Todoitem>)
+                            })
+                        }
+                    </ul>
+                </div>
             );
         }
     };

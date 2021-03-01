@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 
 class Todoitem extends Component {
+
+    
+  
     // state = {
     //     important: false,
     //     done: false
@@ -24,6 +27,19 @@ class Todoitem extends Component {
     //     this.setState((state)=>{
     //         return {done: !state.done}
     //     })
+    // }
+
+
+    // componentDidMount (){
+    //     console.log('i was born');
+    // }
+
+    // componentDidUpdate() {
+    //     console.log('i was update');
+    // }
+
+    // componentWillUnmount () {
+
     // }
 
     render() {
